@@ -32,7 +32,7 @@ const PagePure = ({ name, date, color, attendants, handleAttendClick }) =>
     </Meeting>
     <Attendance>
       <AttendButton onClick={handleAttendClick}>Tilmeld</AttendButton>
-      {attendants.map(({ id, text }) =>
+      {attendants && attendants.map(({ id, text }) =>
         <Attendant key={id}>
           <UsersListItem name={text} />
         </Attendant>
@@ -93,7 +93,7 @@ export default compose(
   }),
   displayLoadingState,
   withProps(
-    ({ data: { meeting: { date, attendants, group: { name, color } } } }) => ({
+    ({ data: { Meeting: { date, attendants, group: { name, color } } } }) => ({
       date,
       name,
       color,

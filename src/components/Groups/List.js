@@ -12,9 +12,9 @@ import displayLoadingState from '../Loading'
 
 import Badge from './Badge'
 
-const GroupsPure = ({ data: { groups }, activeGroup, setActiveGroup }) =>
+const GroupsPure = ({ data: { allGroups }, activeGroup, setActiveGroup }) =>
   <GroupsList>
-    {groups && groups.map(({ id, name, color }) =>
+    {allGroups && allGroups.map(({ id, name, color }) =>
       <Badge
         key={id}
         id={id}

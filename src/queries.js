@@ -26,7 +26,7 @@ export const MeetingsQuery = gql`
 `
 
 export const MeetingQuery = gql`
-  query MeetingQuery($id: Int!) {
+  query MeetingQuery($id: ID!) {
     Meeting(id: $id) {
       id
       date
@@ -35,9 +35,9 @@ export const MeetingQuery = gql`
         name
         color
       }
-      attendants {
-        user_id
-      }
+      #attendants {
+      #  user_id
+      #}
     }
   }
 `
@@ -63,17 +63,22 @@ export const GroupsQuery = gql`
 
 // Mutations
 export const CreateMeeting = gql`
-  mutation createMeeting($meeting: meetingInput!) {
-    createMeeting(meeting: $meeting) {
-      id
-      date
-      groupId
-      group {
+  mutation createMeeting(
+      $date: DateTime!
+      $groupId: ID!
+    ) {
+      createMeeting(
+        date: $date
+        groupId: $groupId
+      ) {
         id
-        name
-        color
+        date
+        group {
+          id
+          name
+          color
+        }
       }
-    }
   }
 `
 
@@ -81,6 +86,22 @@ export const createAttendant = gql`
   mutation createAttendant($attendant: attendantInput!) {
     createAttendant(attendant: $attendant) {
       meetingId
+    }
+  }
+`
+
+export const createGroup = gql`
+  mutation createGroup(
+    $name: String!
+    $color: String!
+  ) {
+    createGroup(
+      name: $name
+      color: $color
+    ) {
+      id
+      name
+      color
     }
   }
 `

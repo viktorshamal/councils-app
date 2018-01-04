@@ -5,7 +5,7 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 
-import { GroupsQuery } from '../../queries'
+import { GroupsQuery, createGroup } from '../../queries'
 
 import Modal from '../Modal'
 
@@ -36,30 +36,28 @@ const Container = styled.div`
   align-self: center;
 `
 
+const Input = styled.input`
+  padding: .5rem;
+  margin: 1rem;
+`
+
+const Select = styled.select`
+  padding: .5rem;
+  margin: 1rem;
+`
+
 GroupFormPure.defaultProps = {
   color: 'black'
 }
-
-const createGroup = gql`
-  mutation createGroup($group: groupInput!) {
-    createGroup(group: $group) {
-      id
-      name
-      color
-    }
-  }
-`
 
 const submitProp = {
   props: ({ mutate }) => ({
     submit: ({ name, color }) =>
       mutate({
-        variables: {
-          group: { name, color }
-        },
+        variables: { name, color },
         update: (store, { data: { createGroup } }) => {
           const data = store.readQuery({ query: GroupsQuery })
-          data.groups.unshift(createGroup)
+          data.allGroups.unshift(createGroup)
           store.writeQuery({ query: GroupsQuery, data })
         }
       })
@@ -79,16 +77,6 @@ const handlers = {
     props.submit({ name, color })
   }
 }
-
-const Input = styled.input`
-  padding: .5rem;
-  margin: 1rem;
-`
-
-const Select = styled.select`
-  padding: .5rem;
-  margin: 1rem;
-`
 
 export default compose(
   graphql(createGroup, submitProp),

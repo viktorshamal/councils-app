@@ -13,7 +13,7 @@ import Datepicker from '../Datepicker'
 import Timepicker from '../Timepicker'
 
 export const MeetingFormPure = ({
-  data: { groups },
+  data: { allGroups },
   activeGroup,
   activeGroupIndex,
   onSubmit,
@@ -28,7 +28,7 @@ export const MeetingFormPure = ({
         onChange={onSelectChange}
         color={activeGroup.color}
       >
-        {groups.map((group, i) =>
+        {allGroups.map((group, i) =>
           <Option value={i} key={group.id}>
             {group.name}
           </Option>
@@ -80,15 +80,10 @@ const submitProp = {
   props: ({ mutate }) => ({
     submit: ({ date, groupId }) =>
       mutate({
-        variables: {
-          meeting: {
-            date,
-            groupId
-          }
-        },
+        variables: { date, groupId },
         update: (store, { data: { createMeeting } }) => {
           const data = store.readQuery({ query: MeetingsQuery })
-          data.meetings.unshift(createMeeting)
+          data.allMeetings.unshift(createMeeting)
           store.writeQuery({ query: MeetingsQuery, data })
         }
       })
@@ -96,7 +91,7 @@ const submitProp = {
 }
 
 const initialActiveGroupIndex = props => {
-  const index = props.data.groups.findIndex(
+  const index = props.data.allGroups.findIndex(
     group => group.id === props.initialGroupId
   )
   return index > -1 ? index : 0 // Return the first if none is selected
@@ -110,14 +105,13 @@ export default compose(
   withState('activeGroupIndex', 'changeGroup', initialActiveGroupIndex),
   withState('date', 'setDate', new Date()),
   withProps(props => ({
-    activeGroup: props.data.groups[props.activeGroupIndex]
+    activeGroup: props.data.allGroups[props.activeGroupIndex]
   })),
   withRedirect,
   withHandlers({
     onSubmit: props => event => {
       props
         .submit({
-          text: '',
           date: props.date,
           groupId: props.activeGroup.id
         })

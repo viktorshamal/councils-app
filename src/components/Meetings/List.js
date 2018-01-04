@@ -13,10 +13,10 @@ import displayLoadingState from '../Loading'
 import MeetingCard from './Card'
 import Grid from '../Grid'
 
-const MeetingsPure = ({ data: { meetings } = [], activeGroup }) =>
+const MeetingsPure = ({ data: { allMeetings } = [], activeGroup }) =>
   <MeetingsList>
     <NegativeMargins>
-      {meetings && meetings
+      {allMeetings && allMeetings
         .filter(({ group }) => !activeGroup || group.id === activeGroup)
         .sort((a, b) => new Date(b.date) - new Date(a.date))
         .map(({ id, date, group: { name, color } }) =>
