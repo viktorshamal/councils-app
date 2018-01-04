@@ -80,11 +80,23 @@ async function render(req, res) {
     res.status(200).send(
       `<!doctype html>
         <html lang="">
-        <head>
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-            <meta charSet='utf-8' />
-            <title>Welcome to Razzle</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="theme-color" content="#000000">
+            <meta name="mobile-web-app-capable" content="yes">
+            <meta name="apple-mobile-web-app-capable" content="yes">
+        
+            <title>Communities</title>
+            <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+            <style>
+              body {
+                margin: 0;
+                padding: 0;
+                background-color: #fafafa;
+                font-family: 'Roboto', sans-serif;
+              }
+            </style>
             ${assets.client.css
               ? `<link rel="stylesheet" href="${assets.client.css}">`
               : ''}
