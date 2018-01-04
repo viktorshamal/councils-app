@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { pure, withProps, withHandlers, compose } from 'recompact'
-import { connect } from 'react-redux'
 import { graphql } from 'react-apollo'
 
 import { MeetingQuery, createAttendant } from '../../queries'

@@ -1,11 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import onClickOutside from 'react-onclickoutside'
-
 import { compose, pure, withState, withProps, withHandlers } from 'recompact'
-
-import { lighten } from 'polished'
 
 import {
   getYear,

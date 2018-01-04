@@ -2,9 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { connect } from 'react-redux'
-import { branch, renderNothing, compose } from 'recompact'
-
-import { LoginButton } from './Auth'
 
 const ActionsPure = ({ auth }) =>
   <Wrapper>

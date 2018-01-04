@@ -2,7 +2,6 @@ import React from 'react'
 
 import { pure, compose, withState, withHandlers } from 'recompact'
 import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
 import styled from 'styled-components'
 
 import { GroupsQuery, createGroup } from '../../queries'
